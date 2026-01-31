@@ -1,20 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: lab03
-  namespace: labs
+  name: jenkins
+  labels:
+    app: jenkins
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: lab03
+      app: jenkins
   template:
     metadata:
       labels:
-        app: lab03
+        app: jenkins
     spec:
+      securityContext:
+        fsGroup: 1000
       containers:
-      - name: lab03-container
-        image: htcl/htis-web-app:v1.0.2
-        ports:
-        - containerPort: 80
+        - name: jenkins
+          image: jenkins/jenkins:lts
+          ports:
+            - containerPort: 8080
+            - containerPort: 50000
+          volumeMounts:
+            - name: jenkins-home
+              mountPath: /var/jenkins_home
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1Gi"
+            limits:
+              cpu: "1"
+              memory: "2Gi"
+      volumes:
+        - name: jenkins-home
+          emptyDir: {}
