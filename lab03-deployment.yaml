@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lab03
+  namespace: labs
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: lab03
+  template:
+    metadata:
+      labels:
+        app: lab03
+    spec:
+      containers:
+      - name: lab03-container
+        image: myprincekay/dt-task5-lab03:24.6.25
+        ports:
+        - containerPort: 80
