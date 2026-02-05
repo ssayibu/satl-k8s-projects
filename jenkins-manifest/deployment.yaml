@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: jenkins
-          image: jenkins/jenkins:2.544-alpine
+          image: jenkins/jenkins:2.501-alpine-jdk21
           ports:
             - containerPort: 8080
