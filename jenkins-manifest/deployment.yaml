@@ -13,11 +13,11 @@ spec:
       labels:
         app: jenkins
     spec:
-      securityContext:
-        fsGroup: 1000
       initContainers:
         - name: fix-permissions
           image: busybox
+          securityContext:
+            runAsUser: 0
           command:
             - sh
             - -c
