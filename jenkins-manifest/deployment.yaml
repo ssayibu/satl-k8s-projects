@@ -13,6 +13,15 @@ spec:
       labels:
         app: jenkins
     spec:
+      securityContext:
+        fsGroup: 1000
+      initContainers:
+        - name: fix-permissions
+          image: busybox
+          command:
+            - sh
+            - -c
+            - chown -R 1000:1000 /var/jenkins_home
       containers:
         - name: jenkins
           image: jenkins/jenkins:2.501-alpine-jdk21
